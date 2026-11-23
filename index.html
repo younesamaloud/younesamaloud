@@ -1,0 +1,929 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Younes Amaloud</title>
+<style>body{margin:0}img{max-width:100%}[hidden]{display:none!important}</style>
+
+<meta name="description" content="Younes Amaloud, Computer Science engineering student at Toulouse INP-ENSEEIHT. Projects, skills, CV and school portfolio.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;1,400&family=JetBrains+Mono:wght@400;500;700&display=swap">
+<style>
+/* Layout: a live camera feed reading the page. Detection boxes frame what matters, mono HUD labels, quiet dark space. */
+:root{
+  color-scheme: dark;
+  --bg:#0a0d13; --surface:#111621; --surface-2:#171e2c; --line:#222b3c; --line-2:#2f3a50;
+  --fg:#e9edf5; --muted:#9aa3b6; --dim:#5f6a80;
+  --accent:#ffb23e; --accent-ink:#1b1204; --track:#6cc7ff; --alert:#ff6f61; --ok:#4fd18b; --sim-healthy:#7f8aa3;
+  --f-display:"Bricolage Grotesque","Arial Narrow",system-ui,sans-serif;
+  --f-body:"IBM Plex Sans",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+  --f-mono:"JetBrains Mono",ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+  --r:6px; --max:1120px; --header-h:60px;
+}
+:root:not([data-lang]) .fr,[data-lang="en"] .fr,[data-lang="fr"] .en{display:none!important}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+@media (prefers-reduced-motion: reduce){html{scroll-behavior:auto}}
+body{background:var(--bg);color:var(--fg);font-family:var(--f-body);font-size:16px;line-height:1.6;-webkit-font-smoothing:antialiased}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:10;background:var(--bg)}
+a{color:inherit}
+:focus-visible{outline:2px solid var(--accent);outline-offset:3px;border-radius:2px}
+h1,h2,h3{font-family:var(--f-display);text-wrap:balance;margin:0;line-height:1.08;letter-spacing:-.015em}
+p{margin:0}
+ul{margin:0;padding:0}
+.wrap{max-width:var(--max);margin-inline:auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+.mono{font-family:var(--f-mono)}
+.muted{color:var(--muted)}
+
+/* Header */
+.site-head{position:sticky;top:env(safe-area-inset-top,0px);z-index:9;background:color-mix(in srgb,var(--bg) 88%,transparent);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+.head-row{display:flex;align-items:center;gap:20px;min-height:var(--header-h)}
+.brand{font-family:var(--f-mono);font-weight:700;font-size:14px;text-decoration:none;letter-spacing:.01em;white-space:nowrap;display:flex;align-items:center;gap:8px}
+.brand i{display:inline-block;width:9px;height:9px;border:2px solid var(--accent)}
+.nav{flex:1;min-width:0;overflow-x:auto;scrollbar-width:none}
+.nav::-webkit-scrollbar{display:none}
+.nav ul{list-style:none;display:flex;gap:2px;align-items:center;white-space:nowrap}
+.nav a{display:block;font-family:var(--f-mono);font-size:12.5px;color:var(--muted);text-decoration:none;padding:6px 9px;border-radius:4px}
+.nav a:hover{color:var(--fg);background:var(--surface-2)}
+.nav a.on{color:var(--accent)}
+.nav .sep{width:1px;height:16px;background:var(--line-2);margin:0 6px;flex:none}
+.lang{display:flex;border:1px solid var(--line-2);border-radius:5px;overflow:hidden;flex:none}
+.lang button{font:500 12px var(--f-mono);background:none;border:0;color:var(--muted);padding:6px 10px;cursor:pointer}
+.lang button[aria-pressed="true"]{background:var(--accent);color:var(--accent-ink)}
+@media (max-width:760px){
+  .head-row{flex-wrap:wrap;gap:0 12px;padding-block:8px 0}
+  .brand{order:1;flex:1}
+  .lang{order:2}
+  .nav{order:3;flex-basis:100%;margin-inline:-6px;padding-block:6px}
+}
+
+/* Shared section chrome */
+section{scroll-margin-top:calc(var(--header-h) + 24px)}
+.sec{padding-block:88px;border-top:1px solid var(--line)}
+.sec-head{display:grid;gap:14px;margin-bottom:40px;max-width:720px}
+.sec-head h2{font-size:clamp(2rem,4.6vw,3rem);font-weight:800}
+.sec-head p{color:var(--muted);font-size:1.0625rem;max-width:60ch}
+.tag{justify-self:start;display:inline-flex;align-items:center;gap:8px;font:500 12px/1 var(--f-mono);letter-spacing:.04em;background:var(--accent);color:var(--accent-ink);padding:5px 8px 5px 7px;border-radius:2px}
+.tag b{font-weight:500;opacity:.65}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:var(--r)}
+.det{position:relative}
+.det::before,.det::after{content:"";position:absolute;width:16px;height:16px;border:2px solid var(--accent);opacity:0;transition:opacity .2s ease,transform .25s ease;pointer-events:none}
+.det::before{top:-2px;left:-2px;border-right:0;border-bottom:0;transform:translate(-5px,-5px)}
+.det::after{bottom:-2px;right:-2px;border-left:0;border-top:0;transform:translate(5px,5px)}
+.det:hover::before,.det:hover::after,.det:focus-within::before,.det:focus-within::after{opacity:1;transform:none}
+.chips{list-style:none;display:flex;flex-wrap:wrap;gap:6px}
+.chips li{font:500 12.5px/1 var(--f-mono);padding:6px 9px;border:1px solid var(--line-2);border-radius:3px;color:var(--fg);background:var(--surface-2)}
+.btn{display:inline-flex;align-items:center;gap:9px;font:600 15px/1 var(--f-body);text-decoration:none;padding:13px 18px;border-radius:5px;border:1px solid var(--line-2);color:var(--fg);background:transparent;cursor:pointer;transition:background .15s,border-color .15s,transform .15s}
+.btn:hover{border-color:var(--muted);background:var(--surface-2)}
+.btn.primary{background:var(--accent);border-color:var(--accent);color:var(--accent-ink)}
+.btn.primary:hover{background:#ffc261;border-color:#ffc261}
+.btn svg{width:16px;height:16px;flex:none}
+.bullets{list-style:none;display:grid;gap:8px}
+.bullets li{position:relative;padding-left:20px}
+.bullets li::before{content:"";position:absolute;left:2px;top:.62em;width:8px;height:8px;border:1.5px solid var(--accent)}
+.eyebrow{font:500 12px/1.4 var(--f-mono);letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+
+/* Hero */
+.hero{padding-block:72px 96px;background:
+  radial-gradient(ellipse 60% 55% at 78% 40%,rgba(255,178,62,.07),transparent 70%),
+  radial-gradient(circle,var(--line) 1px,transparent 1.2px) 0 0/28px 28px}
+.hero-grid{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,.9fr);gap:56px;align-items:center}
+.prompt{font:500 14px var(--f-mono);color:var(--muted);display:flex;gap:10px;align-items:center}
+.prompt b{color:var(--accent);font-weight:500}
+.caret{display:inline-block;width:8px;height:16px;background:var(--accent);animation:blink 1.1s steps(1) infinite}
+@keyframes blink{50%{opacity:0}}
+.hero h1{font-size:clamp(3rem,8.4vw,5.6rem);font-weight:800;margin:18px 0 22px;letter-spacing:-.03em}
+.lead{font-size:clamp(1.0625rem,1.8vw,1.25rem);color:#cdd3df;max-width:46ch}
+.status{display:inline-flex;align-items:center;gap:10px;margin-top:26px;font:500 13px/1.4 var(--f-mono);color:var(--fg);border:1px solid var(--line-2);background:var(--surface);padding:8px 12px;border-radius:4px}
+.status i{width:8px;height:8px;border-radius:50%;background:var(--ok);box-shadow:0 0 0 4px rgba(79,209,139,.15);flex:none}
+.ctas{display:flex;flex-wrap:wrap;gap:12px;margin-top:30px}
+
+/* Camera viewport */
+.cam{position:relative;aspect-ratio:4/3;width:100%;max-width:100%;background:
+  linear-gradient(180deg,rgba(255,255,255,.015),rgba(0,0,0,.25)),
+  repeating-linear-gradient(0deg,rgba(255,255,255,.022) 0 1px,transparent 1px 3px),
+  var(--surface);border:1px solid var(--line-2);border-radius:8px;overflow:hidden;user-select:none;touch-action:pan-y}
+.cam-grid{position:absolute;inset:0;background:
+  linear-gradient(var(--line) 1px,transparent 1px) 0 0/25% 33.333%,
+  linear-gradient(90deg,var(--line) 1px,transparent 1px) 0 0/25% 33.333%;opacity:.35}
+.hud{position:absolute;font:500 11.5px/1 var(--f-mono);color:var(--muted);display:flex;align-items:center;gap:7px;letter-spacing:.03em}
+.hud.tl{top:14px;left:14px}.hud.tr{top:14px;right:14px;color:var(--fg)}
+.hud.bl{bottom:14px;left:14px}.hud.br{bottom:14px;right:14px;color:var(--fg)}
+.rec{width:7px;height:7px;border-radius:50%;background:var(--alert);animation:blink 1.6s steps(1) infinite}
+.meter{width:54px;height:5px;background:var(--line-2);border-radius:3px;overflow:hidden;display:inline-block}
+.meter i{display:block;height:100%;width:97%;background:var(--ok);transition:background .3s}
+.subject{position:absolute;inset:0;display:grid;place-items:center}
+.avatar{width:36%;aspect-ratio:1;border-radius:50%;display:grid;place-items:center;font:800 clamp(2rem,6vw,3.4rem)/1 var(--f-display);letter-spacing:-.03em;color:var(--fg);
+  background:radial-gradient(circle at 35% 30%,#2a3550,#141a27 70%);box-shadow:inset 0 0 0 1px var(--line-2),0 24px 60px rgba(0,0,0,.45)}
+.bbox{position:absolute;left:27%;top:17%;width:46%;height:66%;border:2px solid var(--accent);transition:transform .45s cubic-bezier(.2,.7,.2,1);animation:lock .9s cubic-bezier(.2,.7,.2,1) both}
+@keyframes lock{from{transform:scale(1.25);border-color:rgba(255,178,62,.3)}to{transform:none}}
+.bbox-label{position:absolute;bottom:100%;left:-2px;background:var(--accent);color:var(--accent-ink);font:500 11.5px/1 var(--f-mono);padding:4px 6px;white-space:nowrap}
+.bbox.track{left:0;top:0;width:68px;height:68px;border-color:var(--track);transition:none;animation:none}
+.bbox.track .bbox-label{background:var(--track)}
+.cam-toast{position:absolute;left:50%;bottom:44px;transform:translateX(-50%);background:var(--bg);border:1px solid var(--line-2);color:var(--fg);font:500 12px/1.4 var(--f-mono);padding:8px 12px;border-radius:4px;white-space:nowrap;max-width:calc(100% - 28px);overflow:hidden;text-overflow:ellipsis}
+.cam-cap{margin-top:12px;font:400 12.5px/1.5 var(--f-mono);color:var(--dim)}
+
+/* About */
+.about-grid{display:grid;grid-template-columns:minmax(0,1.35fr) minmax(0,1fr);gap:56px;align-items:start}
+.prose{display:grid;gap:18px;font-size:1.0625rem;max-width:62ch;color:#d4d9e4}
+.facts{padding:8px 22px}
+.facts dl{margin:0}
+.facts div{display:grid;grid-template-columns:minmax(0,7.5rem) minmax(0,1fr);gap:16px;padding:14px 0;border-bottom:1px solid var(--line)}
+.facts div:last-child{border-bottom:0}
+.facts dt{font:500 12px/1.6 var(--f-mono);color:var(--muted);text-transform:uppercase;letter-spacing:.08em}
+.facts dd{margin:0;font-weight:500}
+.linkout{display:inline-flex;align-items:center;gap:8px;margin-top:22px;font:500 14px var(--f-mono);color:var(--accent);text-decoration:none;border-bottom:1px solid transparent}
+.linkout:hover{border-bottom-color:var(--accent)}
+
+/* Projects */
+.projects{display:grid;gap:28px}
+.proj{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.15fr);overflow:hidden}
+.proj.flip .proj-visual{order:2;border-left:1px solid var(--line);border-right:0}
+.proj-visual{background:var(--surface-2);border-right:1px solid var(--line);padding:28px;display:flex;flex-direction:column;gap:14px;min-width:0}
+.proj-body{padding:32px;display:grid;gap:16px;align-content:start;min-width:0}
+.proj-meta{display:flex;flex-wrap:wrap;gap:8px 14px;align-items:center}
+.kind{font:500 12px/1 var(--f-mono);color:var(--accent);border:1px solid rgba(255,178,62,.35);padding:5px 8px;border-radius:3px}
+.proj h3{font-size:clamp(1.6rem,3vw,2.1rem);font-weight:700}
+.proj-sub{color:var(--muted);font-size:1.0625rem;margin-top:-6px}
+.vis-title{font:500 11.5px/1 var(--f-mono);color:var(--muted);text-transform:uppercase;letter-spacing:.1em}
+.pipe{list-style:none;display:grid;gap:0}
+.pipe>li{position:relative;padding:0 0 18px 30px}
+.pipe>li:last-child{padding-bottom:0}
+.pipe>li::before{content:"";position:absolute;left:8px;top:22px;bottom:2px;width:1px;background:var(--line-2)}
+.pipe>li:last-child::before{display:none}
+.pipe>li::after{content:attr(data-n);position:absolute;left:0;top:7px;width:17px;height:17px;display:grid;place-items:center;font:700 10px/1 var(--f-mono);color:var(--accent-ink);background:var(--accent);border-radius:2px}
+.node{background:var(--surface);border:1px solid var(--line-2);border-radius:4px;padding:9px 12px;font-weight:500;font-size:14.5px}
+.node small{display:block;font:400 12px/1.4 var(--f-mono);color:var(--muted);margin-top:2px}
+.split{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.sim-wrap{position:relative;flex:1;min-height:230px;border:1px solid var(--line-2);border-radius:4px;background:var(--bg);overflow:hidden}
+#sim{position:absolute;inset:0;width:100%;height:100%;display:block}
+.sim-bar{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:10px}
+.legend{list-style:none;display:flex;flex-wrap:wrap;gap:6px 14px;font:500 12px/1 var(--f-mono);color:var(--muted)}
+.legend li{display:flex;align-items:center;gap:6px}
+.legend i{width:8px;height:8px;border-radius:50%}
+.legend b{color:var(--fg);font-weight:500;font-variant-numeric:tabular-nums;min-width:2ch;display:inline-block}
+.mini{font:500 12px/1 var(--f-mono);background:none;border:1px solid var(--line-2);color:var(--fg);padding:7px 10px;border-radius:3px;cursor:pointer}
+.mini:hover{border-color:var(--muted)}
+.vis-note{font:400 12px/1.5 var(--f-mono);color:var(--dim)}
+
+/* Skills */
+.skills-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:16px}
+.skill{padding:22px;display:grid;gap:14px;align-content:start}
+.skill h3{font:600 14px/1.3 var(--f-mono);letter-spacing:.02em;color:var(--muted);text-transform:uppercase}
+.learning{font:500 11px/1 var(--f-mono);color:var(--track);border:1px solid rgba(108,199,255,.35);padding:4px 6px;border-radius:3px;justify-self:start}
+.langs{margin-top:16px;padding:22px 24px;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:18px}
+.lang-item{display:grid;gap:6px}
+.lang-item strong{font-weight:600}
+.lang-item span{font:400 12.5px/1.4 var(--f-mono);color:var(--muted)}
+.dots{display:flex;gap:5px}
+.dots i{width:18px;height:5px;border-radius:2px;background:var(--line-2)}
+.dots i.f{background:var(--accent)}
+
+/* School band */
+.band{border-top:1px solid var(--line);background:var(--surface);padding-block:22px}
+.band .wrap{display:flex;flex-wrap:wrap;gap:8px 20px;align-items:baseline;justify-content:space-between}
+.band p{font:500 13px/1.5 var(--f-mono);color:var(--muted)}
+.band strong{color:var(--fg);font-weight:500}
+
+/* Course timeline */
+.timeline{list-style:none;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:0;position:relative;margin-bottom:56px}
+.timeline::before{content:"";position:absolute;left:0;right:0;top:9px;height:2px;background:linear-gradient(90deg,var(--line-2),var(--line-2) 70%,var(--accent))}
+.timeline li{position:relative;padding:36px 28px 0 0;min-width:0}
+.timeline li::before{content:"";position:absolute;left:0;top:2px;width:16px;height:16px;border:2px solid var(--line-2);background:var(--bg);border-radius:50%}
+.timeline li.now::before{border-color:var(--accent);background:var(--accent);box-shadow:0 0 0 6px rgba(255,178,62,.15)}
+.t-date{font:500 13px/1 var(--f-mono);color:var(--accent)}
+.timeline h3{font-size:1.3rem;font-weight:700;margin:10px 0 8px}
+.timeline p{color:var(--muted);font-size:15px}
+.here{display:inline-block;margin-top:12px;font:500 11.5px/1 var(--f-mono);background:var(--accent);color:var(--accent-ink);padding:4px 7px;border-radius:2px}
+.sems{display:grid;gap:18px}
+.sem{padding:24px 26px 10px}
+.sem-top{display:flex;flex-wrap:wrap;gap:6px 16px;align-items:baseline;padding-bottom:14px}
+.sem-top h3{font-size:1.4rem;font-weight:700}
+.sem-top .eyebrow{flex:1;min-width:0}
+.badge{font:500 11.5px/1 var(--f-mono);color:var(--ok);border:1px solid rgba(79,209,139,.4);padding:4px 7px;border-radius:3px;align-self:center}
+.ue-list{list-style:none;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));column-gap:32px}
+.ue-list li{padding:13px 0 14px;border-top:1px solid var(--line);min-width:0}
+.ue-list strong{display:block;font-weight:600}
+.ue-list small{display:block;font:400 12.5px/1.5 var(--f-mono);color:var(--muted);margin-top:3px}
+
+/* Mobility */
+.two{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:48px;align-items:center}
+.route{padding:16px}
+.route svg{display:block;width:100%;height:auto}
+.route .lbl{font:600 15px var(--f-display);fill:var(--fg)}
+.route .sub{font:400 11.5px var(--f-mono);fill:var(--muted)}
+.note{margin-top:20px;font:400 13px/1.5 var(--f-mono);color:var(--dim)}
+
+/* Civic */
+.civic{display:grid;grid-template-columns:minmax(0,1.2fr) minmax(0,1fr);overflow:hidden}
+.civic-main{padding:36px;display:grid;gap:16px;align-content:start}
+.civic-main h3{font-size:clamp(1.5rem,3vw,2rem);font-weight:700}
+.civic-side{background:var(--surface-2);border-left:1px solid var(--line);padding:28px;display:grid;gap:14px;align-content:center}
+.act{display:flex;gap:14px;align-items:flex-start;padding:16px;border:1px solid var(--line-2);border-radius:4px;background:var(--surface)}
+.act svg{width:26px;height:26px;flex:none;color:var(--accent)}
+.act strong{display:block;font-weight:600}
+.act span{font-size:14.5px;color:var(--muted)}
+
+/* Career */
+.career{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,1fr);gap:24px;align-items:stretch}
+.goals{display:grid;gap:16px}
+.goal{padding:26px}
+.goal .eyebrow{margin-bottom:10px}
+.goal p{font-size:1.125rem}
+.goal.big p:not(.eyebrow){font-family:var(--f-display);font-size:clamp(1.5rem,3vw,2rem);font-weight:700;line-height:1.15}
+.cv{padding:28px;display:grid;gap:18px;align-content:start;background:linear-gradient(160deg,rgba(255,178,62,.08),transparent 55%),var(--surface)}
+.cv h3{font-size:1.6rem;font-weight:700}
+.cv-meta{font:400 13px/1.5 var(--f-mono);color:var(--muted)}
+.cv-btns{display:flex;flex-wrap:wrap;gap:10px}
+.cv-msg{font:400 13px/1.5 var(--f-mono);color:var(--alert)}
+
+/* Interests */
+.int-grid{list-style:none;display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:12px}
+.int{padding:22px 16px;display:grid;gap:14px;justify-items:start}
+.int svg{width:30px;height:30px;color:var(--accent)}
+.int span{font-weight:600}
+
+/* Contact */
+.contact-list{display:grid;gap:12px;max-width:640px}
+.c-row{display:flex;align-items:center;gap:16px;padding:16px 18px}
+.c-row .eyebrow{width:5.5rem;flex:none}
+.c-row .val{flex:1;min-width:0;font:500 clamp(.95rem,2.4vw,1.125rem)/1.4 var(--f-mono);overflow-wrap:anywhere;user-select:all}
+.c-row .val a{text-decoration:none}
+.foot{padding-block:28px;border-top:1px solid var(--line);font:400 12.5px var(--f-mono);color:var(--dim)}
+.foot .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:10px}
+
+/* Responsive */
+@media (max-width:980px){
+  .skills-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .langs{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .int-grid{grid-template-columns:repeat(3,minmax(0,1fr))}
+}
+@media (max-width:880px){
+  .hero-grid,.about-grid,.two,.career,.civic,.proj{grid-template-columns:minmax(0,1fr)}
+  .hero-grid{gap:44px}
+  .cam-col{max-width:520px}
+  .proj-visual,.proj.flip .proj-visual{order:2;border-right:0;border-left:0;border-top:1px solid var(--line)}
+  .civic-side{border-left:0;border-top:1px solid var(--line)}
+  .timeline{grid-template-columns:minmax(0,1fr);gap:28px}
+  .timeline::before{left:7px;right:auto;top:4px;bottom:4px;width:2px;height:auto;background:linear-gradient(180deg,var(--line-2) 70%,var(--accent))}
+  .timeline li{padding:0 0 0 36px}
+  .timeline li::before{top:0}
+}
+@media (max-width:560px){
+  .sec{padding-block:64px}
+  .hero{padding-block:44px 64px}
+  .proj-body,.civic-main{padding:24px 20px}
+  .proj-visual,.civic-side{padding:20px}
+  .skills-grid,.langs,.ue-list{grid-template-columns:minmax(0,1fr)}
+  .sem{padding:20px 18px 6px}
+  .int-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .split{grid-template-columns:minmax(0,1fr)}
+  .c-row{flex-wrap:wrap;gap:8px 14px}
+  .c-row .eyebrow{width:100%}
+  .facts div{grid-template-columns:minmax(0,1fr);gap:2px}
+  .btn{padding:12px 15px}
+}
+@media (prefers-reduced-motion: reduce){
+  .caret,.rec{animation:none}
+  .bbox{animation:none;transition:none}
+  .det::before,.det::after{transition:none}
+}
+</style>
+<script>
+(function(){var l="en";try{l=localStorage.getItem("ya-lang")||"";}catch(e){l="";}
+if(l!=="en"&&l!=="fr"){l=((navigator.language||"")+"").toLowerCase().indexOf("fr")===0?"fr":"en";}
+document.documentElement.setAttribute("data-lang",l);document.documentElement.lang=l;})();
+</script>
+
+</head>
+<body>
+<header class="site-head">
+  <div class="wrap head-row">
+    <a class="brand" href="#top"><i aria-hidden="true"></i>younes.amaloud</a>
+    <nav class="nav" aria-label="Sections">
+      <ul>
+        <li><a href="#about"><span class="en">About</span><span class="fr">À propos</span></a></li>
+        <li><a href="#projects"><span class="en">Projects</span><span class="fr">Projets</span></a></li>
+        <li><a href="#skills"><span class="en">Skills</span><span class="fr">Compétences</span></a></li>
+        <li class="sep" aria-hidden="true"></li>
+        <li><a href="#course"><span class="en">Course</span><span class="fr">Parcours</span></a></li>
+        <li><a href="#mobility"><span class="en">Mobility</span><span class="fr">Mobilité</span></a></li>
+        <li><a href="#civic"><span class="en">Civic</span><span class="fr">Engagement</span></a></li>
+        <li><a href="#career"><span class="en">Career</span><span class="fr">Carrière</span></a></li>
+        <li><a href="#interests"><span class="en">Interests</span><span class="fr">Intérêts</span></a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </nav>
+    <div class="lang" role="group" aria-label="Language">
+      <button type="button" id="lang-en" data-setlang="en" aria-pressed="false">EN</button>
+      <button type="button" id="lang-fr" data-setlang="fr" aria-pressed="false">FR</button>
+    </div>
+  </div>
+</header>
+
+<main id="top">
+  <!-- HERO -->
+  <section class="hero" aria-labelledby="hero-title">
+    <div class="wrap hero-grid">
+      <div>
+        <p class="prompt"><b>$</b> whoami <span class="caret" aria-hidden="true"></span></p>
+        <h1 id="hero-title">Younes Amaloud</h1>
+        <p class="lead en">Second-year Computer Science engineering student at Toulouse INP-ENSEEIHT, Systems and Software track. My goal is to make video games.</p>
+        <p class="lead fr">Élève ingénieur en 2<sup>e</sup> année de Sciences du Numérique à Toulouse INP-ENSEEIHT, parcours Systèmes et Logiciels. Mon objectif : développer des jeux vidéo.</p>
+        <p class="status"><i aria-hidden="true"></i><span class="en">Looking for a 2–3 month internship from June 2027</span><span class="fr">Recherche un stage de 2 à 3 mois dès juin 2027</span></p>
+        <div class="ctas">
+          <a class="btn primary" href="Younes_Amaloud_CV_EN.pdf" target="_blank" rel="noopener" data-cv="auto">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 4v11M7 10l5 5 5-5M5 20h14"/></svg>
+            <span class="en">Download CV</span><span class="fr">Télécharger le CV</span>
+          </a>
+          <a class="btn" href="#projects"><span class="en">See my projects</span><span class="fr">Voir mes projets</span></a>
+          <a class="btn" href="#contact"><span class="en">Contact me</span><span class="fr">Me contacter</span></a>
+        </div>
+        <p class="cv-msg" id="cv-msg-hero" hidden></p>
+      </div>
+      <div class="cam-col">
+        <div class="cam" id="cam" role="img" aria-label="Stylised webcam view: a detection box locks onto Younes's initials, as in his FocusMonitor project.">
+          <div class="cam-grid"></div>
+          <div class="hud tl">CAM_01 · focusmonitor</div>
+          <div class="hud tr"><i class="rec"></i>LIVE</div>
+          <div class="subject"><div class="avatar">YA</div></div>
+          <div class="bbox" id="bbox"><span class="bbox-label">student_engineer <span id="conf">0.98</span></span></div>
+          <div class="bbox track" id="cursor-box" hidden><span class="bbox-label">cursor <span id="cconf">0.91</span></span></div>
+          <div class="hud bl"><span id="fps">30</span> FPS</div>
+          <div class="hud br">focus <span id="focus" style="font-variant-numeric:tabular-nums">97</span>% <span class="meter"><i id="focus-bar"></i></span></div>
+          <div class="cam-toast" id="cam-toast" hidden></div>
+        </div>
+        <p class="cam-cap"><span class="en">Move your cursor over the feed. Switch tabs and see what happens to your focus.</span><span class="fr">Passez la souris sur l'image. Changez d'onglet et observez votre concentration.</span></p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+  <section class="sec" id="about" aria-labelledby="about-title">
+    <div class="wrap">
+      <div class="sec-head">
+        <span class="tag"><span class="en">about</span><span class="fr">à_propos</span></span>
+        <h2 id="about-title"><span class="en">Hello, I'm Younes</span><span class="fr">Bonjour, je suis Younes</span></h2>
+      </div>
+      <div class="about-grid">
+        <div>
+          <div class="prose en">
+            <p>I'm from Morocco. I earned a baccalaureate in Mathematical Sciences with highest honours in 2023, then spent two years in preparatory classes (MPSI, then MP).</p>
+            <p>In 2025 I joined Toulouse INP-ENSEEIHT to study Computer Science. I'm now in my second year, on the Systems and Software track.</p>
+            <p>I'm passionate about new technologies and artificial intelligence, especially computer vision. My career goal is to become a game developer. I learn best by building: a webcam focus tracker on my own, an epidemic simulator with my team.</p>
+          </div>
+          <div class="prose fr">
+            <p>Je viens du Maroc. J'ai obtenu un baccalauréat Sciences Mathématiques avec mention Très Bien en 2023, puis j'ai passé deux ans en classes préparatoires (MPSI, puis MP).</p>
+            <p>En 2025, j'ai intégré Toulouse INP-ENSEEIHT en Sciences du Numérique. Je suis aujourd'hui en 2<sup>e</sup> année, dans le parcours Systèmes et Logiciels.</p>
+            <p>Je suis passionné par les nouvelles technologies et l'intelligence artificielle, en particulier la vision par ordinateur. Mon objectif professionnel est de devenir développeur de jeux vidéo. J'apprends surtout en construisant : un outil de suivi de la concentration en solo, un simulateur d'épidémie en équipe.</p>
+          </div>
+          <a class="linkout" href="https://drive.google.com/file/d/1GQwN1WBZF2tXaMf7nuLU_VZnTiTTUqWK/view?usp=drive_link" target="_blank" rel="noopener">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" aria-hidden="true"><path d="M7 5l12 7-12 7z"/></svg>
+            <span class="en">Watch my video introduction</span><span class="fr">Voir ma vidéo de présentation</span> ↗
+          </a>
+        </div>
+        <div class="card facts">
+          <dl>
+            <div><dt><span class="en">Based in</span><span class="fr">Basé à</span></dt><dd>Toulouse, France</dd></div>
+            <div><dt><span class="en">From</span><span class="fr">Origine</span></dt><dd><span class="en">Morocco</span><span class="fr">Maroc</span></dd></div>
+            <div><dt><span class="en">School</span><span class="fr">École</span></dt><dd>Toulouse INP-ENSEEIHT, <span class="en">2nd year</span><span class="fr">2<sup>e</sup> année</span></dd></div>
+            <div><dt><span class="en">Track</span><span class="fr">Parcours</span></dt><dd><span class="en">Systems and Software</span><span class="fr">Systèmes et Logiciels</span></dd></div>
+            <div><dt><span class="en">Speaks</span><span class="fr">Langues</span></dt><dd><span class="en">Arabic, French, English, Spanish</span><span class="fr">Arabe, français, anglais, espagnol</span></dd></div>
+          </dl>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROJECTS -->
+  <section class="sec" id="projects" aria-labelledby="projects-title">
+    <div class="wrap">
+      <div class="sec-head">
+        <span class="tag"><span class="en">projects</span><span class="fr">projets</span> <b>n=2</b></span>
+        <h2 id="projects-title"><span class="en">Things I've built</span><span class="fr">Ce que j'ai construit</span></h2>
+      </div>
+      <div class="projects">
+        <article class="card proj det">
+          <div class="proj-visual">
+            <p class="vis-title"><span class="en">How it works</span><span class="fr">Fonctionnement</span></p>
+            <ol class="pipe">
+              <li data-n="1"><div class="node"><span class="en">Webcam frame</span><span class="fr">Image de la webcam</span><small>OpenCV</small></div></li>
+              <li data-n="2"><div class="split">
+                <div class="node"><span class="en">Face + gaze</span><span class="fr">Visage + regard</span><small>MediaPipe</small></div>
+                <div class="node"><span class="en">Phone in hand</span><span class="fr">Téléphone en main</span><small>YOLOv8</small></div>
+              </div></li>
+              <li data-n="3"><div class="node"><span class="en">Attention check</span><span class="fr">Vérification de l'attention</span><small><span class="en">looking away? phone?</span><span class="fr">regard détourné ? téléphone ?</span></small></div></li>
+              <li data-n="4"><div class="node"><span class="en">Live status in the app</span><span class="fr">Statut en direct dans l'appli</span><small>Tkinter · .exe (PyInstaller)</small></div></li>
+            </ol>
+          </div>
+          <div class="proj-body">
+            <div class="proj-meta"><span class="kind"><span class="en">Personal project</span><span class="fr">Projet personnel</span></span></div>
+            <h3>FocusMonitor</h3>
+            <p class="proj-sub"><span class="en">Focus tracking with computer vision</span><span class="fr">Suivi de la concentration par vision par ordinateur</span></p>
+            <p class="en">A desktop app that analyses the webcam feed in real time and spots lapses of attention: looking away from the screen, or a phone in hand.</p>
+            <p class="fr">Une application de bureau qui analyse la webcam en temps réel et repère les pertes d'attention : regard détourné de l'écran ou téléphone en main.</p>
+            <ul class="bullets en">
+              <li>Phone detection with YOLOv8 (Ultralytics)</li>
+              <li>Face and gaze tracking with MediaPipe and OpenCV</li>
+              <li>Tkinter interface, shipped as a standalone Windows executable with PyInstaller</li>
+            </ul>
+            <ul class="bullets fr">
+              <li>Détection du téléphone avec YOLOv8 (Ultralytics)</li>
+              <li>Suivi du visage et du regard avec MediaPipe et OpenCV</li>
+              <li>Interface Tkinter, livrée en exécutable Windows autonome avec PyInstaller</li>
+            </ul>
+            <ul class="chips" aria-label="Tech stack"><li>Python</li><li>OpenCV</li><li>MediaPipe</li><li>YOLOv8</li><li>Tkinter</li><li>PyInstaller</li></ul>
+          </div>
+        </article>
+
+        <article class="card proj flip det">
+          <div class="proj-visual">
+            <div class="sim-bar">
+              <ul class="legend" aria-live="off">
+                <li><i style="background:var(--sim-healthy)"></i><span class="en">healthy</span><span class="fr">sains</span> <b id="n-h">0</b></li>
+                <li><i style="background:var(--alert)"></i><span class="en">infected</span><span class="fr">infectés</span> <b id="n-i">0</b></li>
+                <li><i style="background:var(--dim)"></i><span class="en">recovered</span><span class="fr">guéris</span> <b id="n-r">0</b></li>
+              </ul>
+              <button type="button" class="mini" id="sim-restart"><span class="en">Restart</span><span class="fr">Relancer</span></button>
+            </div>
+            <div class="sim-wrap"><canvas id="sim" aria-label="Animated dots showing an infection spreading through a population"></canvas></div>
+            <p class="vis-note"><span class="en">A quick in-browser sketch of the idea, not the project's code.</span><span class="fr">Petite esquisse de l'idée dans le navigateur, pas le code du projet.</span></p>
+          </div>
+          <div class="proj-body">
+            <div class="proj-meta"><span class="kind"><span class="en">Team project · ENSEEIHT</span><span class="fr">Projet d'équipe · ENSEEIHT</span></span></div>
+            <h3><span class="en">Virus spread simulator</span><span class="fr">Simulateur de propagation d'un virus</span></h3>
+            <p class="proj-sub"><span class="en">Object-oriented simulation in Java</span><span class="fr">Simulation orientée objet en Java</span></p>
+            <p class="en">A Java simulation of an epidemic spreading through a population, designed with object-oriented principles and built as a team.</p>
+            <p class="fr">Une simulation en Java de la propagation d'une épidémie dans une population, conçue selon les principes de la programmation orientée objet et réalisée en équipe.</p>
+            <ul class="bullets en">
+              <li>Object-oriented design of the population and the simulation</li>
+              <li>Teamwork with Git: splitting tasks and integrating everyone's code</li>
+            </ul>
+            <ul class="bullets fr">
+              <li>Conception orientée objet de la population et de la simulation</li>
+              <li>Travail en équipe avec Git : répartition des tâches et intégration du code</li>
+            </ul>
+            <ul class="chips" aria-label="Tech stack"><li>Java</li><li><span class="en">OOP</span><span class="fr">POO</span></li><li>Git</li></ul>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- SKILLS -->
+  <section class="sec" id="skills" aria-labelledby="skills-title">
+    <div class="wrap">
+      <div class="sec-head">
+        <span class="tag"><span class="en">skills</span><span class="fr">compétences</span></span>
+        <h2 id="skills-title"><span class="en">Tools of the trade</span><span class="fr">Ma boîte à outils</span></h2>
+      </div>
+      <div class="skills-grid">
+        <div class="card skill det"><h3><span class="en">Programming</span><span class="fr">Programmation</span></h3><ul class="chips"><li>Python</li><li>Java</li><li>Ada</li></ul></div>
+        <div class="card skill det"><h3><span class="en">Computer vision</span><span class="fr">Vision par ordinateur</span></h3><ul class="chips"><li>OpenCV</li><li>MediaPipe</li><li>YOLOv8</li></ul></div>
+        <div class="card skill det"><h3><span class="en">Tools</span><span class="fr">Outils</span></h3><ul class="chips"><li>Git</li><li>Tkinter</li><li>PyInstaller</li></ul></div>
+        <div class="card skill det"><h3><span class="en">Game development</span><span class="fr">Développement de jeux</span></h3><ul class="chips"><li>Unreal Engine</li></ul><span class="learning"><span class="en">currently learning</span><span class="fr">en apprentissage</span></span></div>
+      </div>
+      <div class="card langs">
+        <div class="lang-item"><strong><span class="en">Arabic</span><span class="fr">Arabe</span></strong><div class="dots" aria-hidden="true"><i class="f"></i><i class="f"></i><i class="f"></i><i class="f"></i><i class="f"></i></div><span><span class="en">Fluent</span><span class="fr">Courant</span></span></div>
+        <div class="lang-item"><strong><span class="en">French</span><span class="fr">Français</span></strong><div class="dots" aria-hidden="true"><i class="f"></i><i class="f"></i><i class="f"></i><i class="f"></i><i></i></div><span><span class="en">Advanced</span><span class="fr">Avancé</span></span></div>
+        <div class="lang-item"><strong><span class="en">English</span><span class="fr">Anglais</span></strong><div class="dots" aria-hidden="true"><i class="f"></i><i class="f"></i><i class="f"></i><i></i><i></i></div><span>B2 · <span class="en">upper intermediate</span><span class="fr">intermédiaire avancé</span></span></div>
+        <div class="lang-item"><strong><span class="en">Spanish</span><span class="fr">Espagnol</span></strong><div class="dots" aria-hidden="true"><i class="f"></i><i></i><i></i><i></i><i></i></div><span><span class="en">Beginner</span><span class="fr">Débutant</span></span></div>
+      </div>
+    </div>
+  </section>
+
+  <div class="band" role="presentation">
+    <div class="wrap">
+      <p><strong><span class="en">School portfolio</span><span class="fr">Portfolio école</span></strong> · Toulouse INP-ENSEEIHT</p>
+      <p><span class="en">Course · Mobility · Civic engagement · Career · Interests</span><span class="fr">Parcours · Mobilité · Engagement · Carrière · Intérêts</span></p>
+    </div>
+  </div>
+
+  <!-- ENGINEERING COURSE -->
+  <section class="sec" id="course" aria-labelledby="course-title" style="border-top:0">
+    <div class="wrap">
+      <div class="sec-head">
+        <span class="tag"><span class="en">engineering_course</span><span class="fr">parcours_ingénieur</span></span>
+        <h2 id="course-title"><span class="en">Engineering course</span><span class="fr">Parcours d'ingénieur</span></h2>
+      </div>
+      <ol class="timeline">
+        <li>
+          <span class="t-date">2023</span>
+          <h3><span class="en">Baccalaureate</span><span class="fr">Baccalauréat</span></h3>
+          <p><span class="en">Mathematical Sciences, highest honours (Mention Très Bien). Morocco.</span><span class="fr">Sciences Mathématiques, mention Très Bien. Maroc.</span></p>
+        </li>
+        <li>
+          <span class="t-date">2023 – 2025</span>
+          <h3><span class="en">Preparatory classes</span><span class="fr">Classes préparatoires</span></h3>
+          <p><span class="en">MPSI then MP, mathematics and physics. CPGE Moulay Ali Cherif (Errachidia), then CPGE Al Zahrawi.</span><span class="fr">MPSI puis MP, mathématiques et physique. CPGE Moulay Ali Cherif (Errachidia), puis CPGE Al Zahrawi.</span></p>
+        </li>
+        <li class="now">
+          <span class="t-date">2025 →</span>
+          <h3>Toulouse INP-ENSEEIHT</h3>
+          <p><span class="en">Engineering degree in Computer Science (Sciences du Numérique), Systems and Software track.</span><span class="fr">Diplôme d'ingénieur en Sciences du Numérique, parcours Systèmes et Logiciels.</span></p>
+          <span class="here"><span class="en">now · 2nd year</span><span class="fr">aujourd'hui · 2<sup>e</sup> année</span></span>
+        </li>
+      </ol>
+      <div class="sems">
+        <div class="card sem det">
+          <div class="sem-top">
+            <h3><span class="en">Semester 7</span><span class="fr">Semestre 7</span></h3>
+            <p class="eyebrow"><span class="en">2nd year · autumn 2026 · Systems and Software track</span><span class="fr">2<sup>e</sup> année · automne 2026 · parcours Systèmes Logiciels</span></p>
+            <span class="badge"><span class="en">in progress</span><span class="fr">en cours</span></span>
+          </div>
+          <ul class="ue-list">
+            <li><strong><span class="en">Concurrent and communicating systems</span><span class="fr">Systèmes concurrents et communicants</span></strong><small><span class="en">Concurrent systems · Middleware · Distributed data project</span><span class="fr">Systèmes concurrents · Intergiciels · Projet données réparties</span></small></li>
+            <li><strong><span class="en">Software and systems engineering</span><span class="fr">Génie du logiciel et des systèmes</span></strong><small><span class="en">Model-driven engineering · Metaprogramming and testing</span><span class="fr">Ingénierie dirigée par les modèles · Métaprogrammation et tests</span></small></li>
+            <li><strong><span class="en">Functional programming</span><span class="fr">Programmation fonctionnelle</span></strong></li>
+            <li><strong><span class="en">Automata, languages and graph theory</span><span class="fr">Théorie des automates et des langages, théorie des graphes</span></strong><small><span class="en">Automata · Graphs</span><span class="fr">Automates · Graphes</span></small></li>
+            <li><strong><span class="en">Optimization and operations research</span><span class="fr">Optimisation et recherche opérationnelle</span></strong></li>
+            <li><strong><span class="en">Soft and human skills</span><span class="fr">Compétences humaines</span></strong><small><span class="en">Professional communication and English · Spanish · Sport · Careers and management</span><span class="fr">Communication professionnelle et anglais · Espagnol · Sport · Carrière et management</span></small></li>
+          </ul>
+        </div>
+        <div class="card sem det">
+          <div class="sem-top">
+            <h3><span class="en">Semester 6</span><span class="fr">Semestre 6</span></h3>
+            <p class="eyebrow"><span class="en">1st year · spring 2026</span><span class="fr">1<sup>re</sup> année · printemps 2026</span></p>
+          </div>
+          <ul class="ue-list">
+            <li><strong><span class="en">Object technology</span><span class="fr">Technologie objet</span></strong><small><span class="en">Object-oriented design and programming</span><span class="fr">Conception et programmation orientées objet</span></small></li>
+            <li><strong><span class="en">Architecture and systems</span><span class="fr">Architecture et systèmes</span></strong><small><span class="en">Operating systems · Computer architecture 2</span><span class="fr">Systèmes d'exploitation centralisés · Architecture des ordinateurs 2</span></small></li>
+            <li><strong><span class="en">Scientific computing and machine learning</span><span class="fr">Calcul scientifique et apprentissage</span></strong><small><span class="en">Scientific computing · Machine learning</span><span class="fr">Calcul scientifique · Apprentissage</span></small></li>
+            <li><strong><span class="en">Telecommunications and signal processing</span><span class="fr">Télécommunications et traitement du signal</span></strong><small><span class="en">Telecommunications · Signal processing</span><span class="fr">Télécommunications · Traitement du signal</span></small></li>
+            <li><strong><span class="en">Soft and human skills</span><span class="fr">Compétences humaines</span></strong></li>
+          </ul>
+        </div>
+        <div class="card sem det">
+          <div class="sem-top">
+            <h3><span class="en">Semester 5</span><span class="fr">Semestre 5</span></h3>
+            <p class="eyebrow"><span class="en">1st year · autumn 2025</span><span class="fr">1<sup>re</sup> année · automne 2025</span></p>
+          </div>
+          <ul class="ue-list">
+            <li><strong><span class="en">Imperative programming</span><span class="fr">Programmation impérative</span></strong><small>Ada</small></li>
+            <li><strong><span class="en">Modeling and architecture</span><span class="fr">Modélisation et architecture</span></strong><small><span class="en">Computer architecture 1 · Modeling</span><span class="fr">Architecture des ordinateurs 1 · Modélisation</span></small></li>
+            <li><strong><span class="en">Control engineering and data analysis</span><span class="fr">Automatique et analyse de données</span></strong><small><span class="en">C language · Control engineering · Data analysis</span><span class="fr">Langage C · Automatique · Analyse de données</span></small></li>
+            <li><strong><span class="en">Numerical analysis and statistics</span><span class="fr">Analyse numérique et statistiques</span></strong><small><span class="en">Optimization and PDEs · Statistics</span><span class="fr">Optimisation et EDP · Statistiques</span></small></li>
+            <li><strong><span class="en">Integration, applications and probability</span><span class="fr">Intégration, applications et probabilités</span></strong></li>
+            <li><strong><span class="en">Soft and human skills</span><span class="fr">Compétences humaines</span></strong><small><span class="en">English · Spanish · Sport · Careers and management</span><span class="fr">Anglais · Espagnol · Sport · Carrière et management</span></small></li>
+          </ul>
+        </div>
+      </div>
+      <p class="note"><span class="en">This section is updated every semester. Course names follow the official ENSEEIHT curriculum.</span><span class="fr">Cette section est mise à jour chaque semestre. Les intitulés suivent la maquette officielle de l'ENSEEIHT.</span></p>
+    </div>
+  </section>
+
+  <!-- INTERNATIONAL MOBILITY -->
+  <section class="sec" id="mobility" aria-labelledby="mobility-title">
+    <div class="wrap">
+      <div class="sec-head">
+        <span class="tag"><span class="en">international_mobility</span><span class="fr">mobilité_internationale</span></span>
+        <h2 id="mobility-title"><span class="en">From Morocco to Toulouse</span><span class="fr">Du Maroc à Toulouse</span></h2>
+      </div>
+      <div class="two">
+        <div>
+          <div class="prose en">
+            <p>I'm Moroccan. After my baccalaureate and two years of preparatory classes in Morocco, I moved to Toulouse in 2025 to join ENSEEIHT. It is my first international mobility as a student engineer.</p>
+            <p>Day to day, that means studying engineering in French, improving my English (B2) and learning Spanish in class.</p>
+          </div>
+          <div class="prose fr">
+            <p>Je suis marocain. Après mon baccalauréat et deux années de classes préparatoires au Maroc, je suis arrivé à Toulouse en 2025 pour intégrer l'ENSEEIHT. C'est ma première mobilité internationale en tant qu'élève ingénieur.</p>
+            <p>Au quotidien, cela veut dire suivre une formation d'ingénieur en français, progresser en anglais (B2) et apprendre l'espagnol en cours.</p>
+          </div>
+          <p class="note"><span class="en">This section will grow with each new mobility.</span><span class="fr">Cette section s'enrichira à chaque nouvelle mobilité.</span></p>
+        </div>
+        <div class="card route det">
+          <svg viewBox="0 0 420 260" role="img" aria-label="Route from Morocco to Toulouse, 2025">
+            <path id="route-path" d="M86 196 Q 150 40 330 70" fill="none" stroke="var(--line-2)" stroke-width="2" stroke-dasharray="6 7"/>
+            <circle cx="86" cy="196" r="7" fill="var(--bg)" stroke="var(--muted)" stroke-width="2"/>
+            <rect x="314" y="54" width="32" height="32" fill="none" stroke="var(--accent)" stroke-width="2"/>
+            <circle cx="330" cy="70" r="5" fill="var(--accent)"/>
+            <circle r="4" fill="var(--accent)" id="route-dot">
+              <animateMotion dur="4.5s" repeatCount="indefinite" keyPoints="0;1" keyTimes="0;1" calcMode="linear"><mpath href="#route-path"/></animateMotion>
+            </circle>
+            <text x="86" y="230" text-anchor="middle" class="lbl en">Morocco</text>
+            <text x="86" y="230" text-anchor="middle" class="lbl fr">Maroc</text>
+            <text x="86" y="248" text-anchor="middle" class="sub">Bac · CPGE · 2023–2025</text>
+            <text x="330" y="112" text-anchor="middle" class="lbl">Toulouse</text>
+            <text x="330" y="130" text-anchor="middle" class="sub">ENSEEIHT · 2025 →</text>
+          </svg>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CIVIC ENGAGEMENT -->
+  <section class="sec" id="civic" aria-labelledby="civic-title">
+    <div class="wrap">
+      <div class="sec-head">
+        <span class="tag"><span class="en">civic_engagement</span><span class="fr">engagement_citoyen</span></span>
+        <h2 id="civic-title"><span class="en">Civic engagement</span><span class="fr">Engagement citoyen</span></h2>
+      </div>
+      <article class="card civic det">
+        <div class="civic-main">
+          <p class="eyebrow"><span class="en">Volunteering · Morocco</span><span class="fr">Bénévolat · Maroc</span></p>
+          <h3><span class="en">Helping families in the mountains of Morocco</span><span class="fr">Aider les familles des montagnes du Maroc</span></h3>
+          <p class="muted en">I volunteered to support families in difficulty living in mountain villages in Morocco, where access to food and to activities for children is limited.</p>
+          <p class="muted fr">J'ai participé en tant que bénévole à l'aide aux familles en difficulté dans les villages de montagne au Maroc, où l'accès à la nourriture et aux activités pour les enfants est limité.</p>
+        </div>
+        <div class="civic-side">
+          <div class="act">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 10h16l-1.6 9.2a1 1 0 0 1-1 .8H6.6a1 1 0 0 1-1-.8z"/><path d="M8 10l3-6M16 10l-3-6M9 14v3M15 14v3M12 14v3"/></svg>
+            <div><strong><span class="en">Food distribution</span><span class="fr">Distribution de nourriture</span></strong><span><span class="en">Delivering food to families in need</span><span class="fr">Apporter de la nourriture aux familles dans le besoin</span></span></div>
+          </div>
+          <div class="act">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="8" cy="6.5" r="2.5"/><circle cx="16.5" cy="8" r="2"/><path d="M3.5 20v-3.5a4.5 4.5 0 0 1 9 0V20M13 20v-2.8a3.5 3.5 0 0 1 7 0V20"/></svg>
+            <div><strong><span class="en">Activities for children</span><span class="fr">Activités pour les enfants</span></strong><span><span class="en">Organising games and activities for the kids</span><span class="fr">Organiser des jeux et des activités pour les enfants</span></span></div>
+          </div>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <!-- CAREER -->
+  <section class="sec" id="career" aria-labelledby="career-title">
+    <div class="wrap">
+      <div class="sec-head">
+        <span class="tag"><span class="en">career</span><span class="fr">carrière</span></span>
+        <h2 id="career-title"><span class="en">Where I'm headed</span><span class="fr">Mon projet professionnel</span></h2>
+      </div>
+      <div class="career">
+        <div class="goals">
+          <div class="card goal big det">
+            <p class="eyebrow"><span class="en">Long-term goal</span><span class="fr">Objectif à long terme</span></p>
+            <p><span class="en">Become a game developer.</span><span class="fr">Devenir développeur de jeux vidéo.</span></p>
+          </div>
+          <div class="card goal det">
+            <p class="eyebrow"><span class="en">Next step</span><span class="fr">Prochaine étape</span></p>
+            <p><span class="en">A 2–3 month second-year internship starting June 2027, ideally in computer vision or game development.</span><span class="fr">Un stage de 2<sup>e</sup> année de 2 à 3 mois à partir de juin 2027, idéalement en vision par ordinateur ou en développement de jeux vidéo.</span></p>
+          </div>
+        </div>
+        <div class="card cv det">
+          <p class="eyebrow">CV · PDF</p>
+          <h3><span class="en">My CV</span><span class="fr">Mon CV</span></h3>
+          <p class="cv-meta"><span class="en">One page, in English and French. Updated November 2026.</span><span class="fr">Une page, en anglais et en français. Mis à jour en novembre 2026.</span></p>
+          <div class="cv-btns">
+            <a class="btn primary" href="Younes_Amaloud_CV_EN.pdf" target="_blank" rel="noopener" data-cv="en">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 4v11M7 10l5 5 5-5M5 20h14"/></svg>English
+            </a>
+            <a class="btn" href="Younes_Amaloud_CV_FR.pdf" target="_blank" rel="noopener" data-cv="fr">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 4v11M7 10l5 5 5-5M5 20h14"/></svg>Français
+            </a>
+          </div>
+          <p class="cv-msg" id="cv-msg" hidden></p>
+          <a class="linkout" style="margin-top:4px" href="https://drive.google.com/file/d/1GQwN1WBZF2tXaMf7nuLU_VZnTiTTUqWK/view?usp=drive_link" target="_blank" rel="noopener">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" aria-hidden="true"><path d="M7 5l12 7-12 7z"/></svg>
+            <span class="en">Video about me</span><span class="fr">Vidéo de présentation</span> ↗
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- INTERESTS -->
+  <section class="sec" id="interests" aria-labelledby="interests-title">
+    <div class="wrap">
+      <div class="sec-head">
+        <span class="tag"><span class="en">interests</span><span class="fr">intérêts</span> <b>n=6</b></span>
+        <h2 id="interests-title"><span class="en">Off the keyboard</span><span class="fr">Loin du clavier</span></h2>
+      </div>
+      <ul class="int-grid">
+        <li class="card int det"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6.5 8.5h11a4 4 0 0 1 3.9 4.8l-.7 3.4a2.4 2.4 0 0 1-4.2 1.1L14.8 16H9.2l-1.7 1.8a2.4 2.4 0 0 1-4.2-1.1l-.7-3.4a4 4 0 0 1 3.9-4.8z"/><path d="M8 11v3.4M6.3 12.7h3.4"/><circle cx="15.6" cy="11.6" r=".9" fill="currentColor" stroke="none"/><circle cx="17.6" cy="13.6" r=".9" fill="currentColor" stroke="none"/></svg><span><span class="en">Video games</span><span class="fr">Jeux vidéo</span></span></li>
+        <li class="card int det"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 8l3.3 2.4-1.3 3.9h-4l-1.3-3.9z"/><path d="M12 8V3.3M15.3 10.4l4.3-1.3M14 14.3l2.6 3.9M10 14.3l-2.6 3.9M8.7 10.4 4.4 9.1"/></svg><span>Football</span></li>
+        <li class="card int det"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2.5 19.5 9 8.5l4.2 6.4 2.3-3.4 6 8z"/><path d="M7.3 11.4 9 12.8l1.6-1.3"/><circle cx="17.5" cy="5.5" r="1.8"/></svg><span><span class="en">Hiking</span><span class="fr">Randonnée</span></span></li>
+        <li class="card int det"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 11h16v2.5A5.5 5.5 0 0 1 14.5 19h-5A5.5 5.5 0 0 1 4 13.5z"/><path d="M2 11h2M20 11h2M9 7.5c0-1.2 1.2-1.2 1.2-2.5M13.4 7.5c0-1.2 1.2-1.2 1.2-2.5"/></svg><span><span class="en">Cooking</span><span class="fr">Cuisine</span></span></li>
+        <li class="card int det"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.4 2.5 3.7 5.5 3.7 9s-1.3 6.5-3.7 9c-2.4-2.5-3.7-5.5-3.7-9S9.6 5.5 12 3z"/></svg><span><span class="en">Travel</span><span class="fr">Voyages</span></span></li>
+        <li class="card int det"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3.5 5.5A1.5 1.5 0 0 1 5 4h6v16H5a1.5 1.5 0 0 1-1.5-1.5z"/><path d="M20.5 5.5A1.5 1.5 0 0 0 19 4h-6v16h6a1.5 1.5 0 0 0 1.5-1.5z"/><path d="M6.5 8h2.5M6.5 11h2.5M15 8h2.5M15 11h2.5"/></svg><span><span class="en">History books</span><span class="fr">Livres d'histoire</span></span></li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section class="sec" id="contact" aria-labelledby="contact-title">
+    <div class="wrap">
+      <div class="sec-head">
+        <span class="tag">contact</span>
+        <h2 id="contact-title"><span class="en">Let's talk</span><span class="fr">Parlons-en</span></h2>
+        <p><span class="en">Internship offers, questions about my projects, or a good conversation about games and computer vision are all welcome.</span><span class="fr">Offres de stage, questions sur mes projets ou simple échange autour des jeux vidéo et de la vision par ordinateur : n'hésitez pas.</span></p>
+      </div>
+      <div class="contact-list">
+        <div class="card c-row det">
+          <span class="eyebrow">Email</span>
+          <span class="val" id="v-email"><a href="mailto:younes.amaloud@gmail.com">younes.amaloud@gmail.com</a></span>
+          <button type="button" class="mini" id="copy-email" data-copy="younes.amaloud@gmail.com"><span class="en">Copy</span><span class="fr">Copier</span></button>
+        </div>
+        <div class="card c-row det">
+          <span class="eyebrow"><span class="en">Phone</span><span class="fr">Téléphone</span></span>
+          <span class="val" id="v-phone">+33 7 69 27 89 37</span>
+          <button type="button" class="mini" id="copy-phone" data-copy="+33769278937"><span class="en">Copy</span><span class="fr">Copier</span></button>
+        </div>
+        <div class="card c-row det">
+          <span class="eyebrow"><span class="en">Location</span><span class="fr">Lieu</span></span>
+          <span class="val">Toulouse, France</span>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="foot">
+  <div class="wrap">
+    <span>© 2026 Younes Amaloud</span>
+    <span><span class="en">Toulouse INP-ENSEEIHT · Computer Science</span><span class="fr">Toulouse INP-ENSEEIHT · Sciences du Numérique</span></span>
+  </div>
+</footer>
+
+<script>
+(function(){
+  var root = document.documentElement;
+  var $ = function(s){ return document.querySelector(s); };
+  var reduce = window.matchMedia && matchMedia("(prefers-reduced-motion: reduce)").matches;
+  var T = {
+    en:{copied:"Copied", toastBack:"Focus lost while you were away. Welcome back.", cvFail:"The download didn't start here. Try the other button or open the PDF from a browser."},
+    fr:{copied:"Copié", toastBack:"Concentration perdue pendant votre absence. Bon retour.", cvFail:"Le téléchargement n'a pas démarré ici. Réessayez ou ouvrez le PDF depuis un navigateur."}
+  };
+  var CV = {en:"Younes_Amaloud_CV_EN.pdf", fr:"Younes_Amaloud_CV_FR.pdf"};
+  function lang(){ return root.getAttribute("data-lang") === "fr" ? "fr" : "en"; }
+
+  /* Language */
+  function setLang(l){
+    root.setAttribute("data-lang", l); root.lang = l;
+    document.querySelectorAll("[data-setlang]").forEach(function(b){ b.setAttribute("aria-pressed", String(b.getAttribute("data-setlang") === l)); });
+    document.querySelectorAll('[data-cv="auto"]').forEach(function(a){ a.setAttribute("href", CV[l]); });
+    try { localStorage.setItem("ya-lang", l); } catch(e) {}
+  }
+  setLang(lang());
+  document.querySelectorAll("[data-setlang]").forEach(function(b){
+    b.addEventListener("click", function(){ setLang(b.getAttribute("data-setlang")); });
+  });
+
+  /* Active nav link */
+  var links = {};
+  document.querySelectorAll(".nav a").forEach(function(a){ links[a.getAttribute("href").slice(1)] = a; });
+  if ("IntersectionObserver" in window){
+    var io = new IntersectionObserver(function(entries){
+      entries.forEach(function(en){
+        if (en.isIntersecting && links[en.target.id]){
+          Object.keys(links).forEach(function(k){ links[k].classList.toggle("on", k === en.target.id); });
+        }
+      });
+    }, {rootMargin:"-45% 0px -50% 0px"});
+    document.querySelectorAll("main section[id]").forEach(function(s){ io.observe(s); });
+  }
+
+  /* Camera feed */
+  var cam = $("#cam"), bbox = $("#bbox"), conf = $("#conf"), fps = $("#fps"),
+      focusEl = $("#focus"), bar = $("#focus-bar"), cbox = $("#cursor-box"), cconf = $("#cconf"), toast = $("#cam-toast");
+  var focus = 97, target = 97, camVisible = true, toastTimer = 0;
+  function renderFocus(){
+    focusEl.textContent = Math.round(focus);
+    bar.style.width = Math.max(2, focus) + "%";
+    bar.style.background = focus < 50 ? "var(--alert)" : focus < 80 ? "var(--accent)" : "var(--ok)";
+  }
+  function jitter(){
+    if (!camVisible || document.hidden) return;
+    var jx = (Math.random()-.5)*5, jy = (Math.random()-.5)*5, s = 1 + (Math.random()-.5)*.025;
+    bbox.style.transform = "translate(" + jx.toFixed(1) + "px," + jy.toFixed(1) + "px) scale(" + s.toFixed(3) + ")";
+    conf.textContent = (0.95 + Math.random()*0.04).toFixed(2);
+    fps.textContent = 29 + Math.round(Math.random()*2);
+    if (target > 90) target = 94 + Math.random()*5;
+  }
+  function easeFocus(){
+    focus += (target - focus) * 0.06;
+    renderFocus();
+    if (Math.abs(target - focus) > 0.3) requestAnimationFrame(easeFocus);
+    else { focus = target; renderFocus(); }
+  }
+  if (!reduce){
+    setInterval(function(){ jitter(); requestAnimationFrame(easeFocus); }, 520);
+  }
+  renderFocus();
+  document.addEventListener("visibilitychange", function(){
+    if (document.hidden){ focus = 6; target = 6; renderFocus(); return; }
+    toast.textContent = T[lang()].toastBack; toast.hidden = false;
+    clearTimeout(toastTimer); toastTimer = setTimeout(function(){ toast.hidden = true; }, 3800);
+    target = 97; if (reduce){ focus = 97; renderFocus(); } else requestAnimationFrame(easeFocus);
+  });
+  cam.addEventListener("pointermove", function(e){
+    if (e.pointerType !== "mouse") return;
+    var r = cam.getBoundingClientRect(), half = 34;
+    var x = Math.min(Math.max(e.clientX - r.left - half, 4), r.width - 2*half - 4);
+    var y = Math.min(Math.max(e.clientY - r.top - half, 22), r.height - 2*half - 4);
+    cbox.style.transform = "translate(" + x + "px," + y + "px)";
+    cbox.hidden = false;
+    cconf.textContent = (0.86 + Math.random()*0.1).toFixed(2);
+  });
+  cam.addEventListener("pointerleave", function(){ cbox.hidden = true; });
+
+  /* Epidemic sketch */
+  var cv = $("#sim"), ctx = cv.getContext("2d"), W = 0, H = 0, people = [], idle = 0, simVisible = false, raf = 0;
+  var cs = getComputedStyle(root);
+  var COL = {h: cs.getPropertyValue("--sim-healthy").trim() || "#7f8aa3", i: cs.getPropertyValue("--alert").trim() || "#ff6f61", r: cs.getPropertyValue("--dim").trim() || "#5f6a80"};
+  var nH = $("#n-h"), nI = $("#n-i"), nR = $("#n-r");
+  function size(){
+    var r = cv.getBoundingClientRect(), d = Math.min(2, window.devicePixelRatio || 1);
+    if (!r.width || !r.height) return false;
+    var oldW = W || r.width, oldH = H || r.height;
+    W = r.width; H = r.height; cv.width = Math.round(W*d); cv.height = Math.round(H*d); ctx.setTransform(d,0,0,d,0,0);
+    people.forEach(function(p){ p.x *= W/oldW; p.y *= H/oldH; });
+    return true;
+  }
+  function reset(){
+    var n = Math.round(Math.max(45, Math.min(95, W*H/3600)));
+    people = [];
+    for (var k=0;k<n;k++){
+      var a = Math.random()*Math.PI*2, v = .35 + Math.random()*.4;
+      people.push({x: 6 + Math.random()*(W-12), y: 6 + Math.random()*(H-12), vx: Math.cos(a)*v, vy: Math.sin(a)*v, s: "h", t: 0});
+    }
+    people[0].s = "i"; idle = 0;
+  }
+  function step(){
+    var R = 11, R2 = R*R, inf = 0;
+    for (var k=0;k<people.length;k++){
+      var p = people[k];
+      p.x += p.vx; p.y += p.vy;
+      if (p.x < 4 || p.x > W-4){ p.vx *= -1; p.x = Math.min(Math.max(p.x,4),W-4); }
+      if (p.y < 4 || p.y > H-4){ p.vy *= -1; p.y = Math.min(Math.max(p.y,4),H-4); }
+      if (p.s === "i"){ inf++; if (++p.t > 460) p.s = "r"; }
+    }
+    for (var a=0;a<people.length;a++){
+      if (people[a].s !== "i") continue;
+      for (var b=0;b<people.length;b++){
+        var q = people[b]; if (q.s !== "h") continue;
+        var dx = q.x - people[a].x, dy = q.y - people[a].y;
+        if (dx*dx + dy*dy < R2 && Math.random() < .06){ q.s = "i"; q.t = 0; }
+      }
+    }
+    if (inf === 0 && ++idle > 150) reset();
+  }
+  function draw(){
+    ctx.clearRect(0,0,W,H);
+    var c = {h:0,i:0,r:0};
+    for (var k=0;k<people.length;k++){
+      var p = people[k]; c[p.s]++;
+      if (p.s === "i"){ ctx.beginPath(); ctx.arc(p.x,p.y,8,0,Math.PI*2); ctx.fillStyle = "rgba(255,111,97,.14)"; ctx.fill(); }
+      ctx.beginPath(); ctx.arc(p.x,p.y,3.2,0,Math.PI*2); ctx.fillStyle = COL[p.s]; ctx.fill();
+    }
+    nH.textContent = c.h; nI.textContent = c.i; nR.textContent = c.r;
+  }
+  function loop(){ step(); draw(); raf = simVisible && !document.hidden ? requestAnimationFrame(loop) : 0; }
+  function start(){ if (!raf && simVisible && !reduce) raf = requestAnimationFrame(loop); }
+  function staticFrame(){ for (var k=0;k<240;k++) step(); draw(); }
+  function init(){
+    if (!size()) return;
+    reset();
+    if (reduce) staticFrame(); else { for (var k=0;k<60;k++) step(); draw(); start(); }
+  }
+  init();
+  if ("ResizeObserver" in window){
+    new ResizeObserver(function(){ var had = W; if (size()){ if (!had || !people.length) init(); else draw(); } }).observe(cv);
+  }
+  if ("IntersectionObserver" in window){
+    new IntersectionObserver(function(es){
+      simVisible = es[0].isIntersecting; if (simVisible) start();
+    }).observe(cv);
+    new IntersectionObserver(function(es){ camVisible = es[0].isIntersecting; }).observe(cam);
+  } else { simVisible = true; start(); }
+  document.addEventListener("visibilitychange", function(){ if (!document.hidden) start(); });
+  $("#sim-restart").addEventListener("click", function(){ reset(); if (reduce) staticFrame(); else { draw(); start(); } });
+
+  /* CV downloads: use the viewer's save prompt when it is available, else let the PDF link open normally */
+  var DL = null;
+  try { if (window.claude && typeof window.claude.use === "function") window.claude.use("downloads").then(function(d){ DL = d; }, function(){}); } catch(e) {}
+  document.querySelectorAll("[data-cv]").forEach(function(a){
+    a.addEventListener("click", function(e){
+      if (!DL) return;
+      e.preventDefault();
+      var l = a.getAttribute("data-cv") === "auto" ? lang() : a.getAttribute("data-cv");
+      var msg = a.closest(".cv") ? $("#cv-msg") : $("#cv-msg-hero");
+      msg.hidden = true;
+      fetch(CV[l]).then(function(r){ if (!r.ok) throw {code:"fetch"}; return r.blob(); })
+        .then(function(blob){ return DL.save({filename: CV[l], data: blob}); })
+        .catch(function(err){
+          if (err && (err.code === "declined" || err.code === "rate_limited")) return;
+          msg.textContent = T[lang()].cvFail; msg.hidden = false;
+        });
+    });
+  });
+
+  /* Copy buttons */
+  document.querySelectorAll("[data-copy]").forEach(function(b){
+    b.addEventListener("click", function(){
+      var txt = b.getAttribute("data-copy"), label = b.innerHTML;
+      function done(){ b.textContent = T[lang()].copied; setTimeout(function(){ b.innerHTML = label; }, 1600); }
+      function fallback(){
+        var el = b.parentNode.querySelector(".val"); var range = document.createRange(); range.selectNodeContents(el);
+        var sel = window.getSelection(); sel.removeAllRanges(); sel.addRange(range);
+      }
+      try { navigator.clipboard.writeText(txt).then(done, fallback); } catch(e) { fallback(); }
+    });
+  });
+
+  /* Route dot: hold still for reduced motion */
+  if (reduce){ var dot = $("#route-dot"); if (dot){ var am = dot.querySelector("animateMotion"); if (am) am.remove(); dot.setAttribute("cx","330"); dot.setAttribute("cy","70"); } }
+})();
+</script>
+
+</body>
+</html>
